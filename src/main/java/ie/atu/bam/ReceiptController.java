@@ -20,19 +20,19 @@ public class ReceiptController {
         return receiptService.getAll();
     }
 
-    @PostMapping("/createRec/{IBAN}/{uID}/{inout}/{num}")
-    public void createReceipt(@PathVariable int IBAN,@PathVariable Long uID,@PathVariable String inout,@PathVariable float num){
-        receiptService.withDepRec(IBAN, uID, inout, num);
+    @PostMapping("/createRec/{IBAN}/{inout}/{num}")
+    public void createReceipt(@PathVariable int IBAN,@PathVariable String inout,@PathVariable float num){
+        receiptService.withDepRec(IBAN, inout, num);
     }
 
-    @GetMapping("/getRec/{uID}")
-    public List<Object> getRecs(@PathVariable Long uID){
-        return receiptService.returnRec(uID);
+    @GetMapping("/getRec/{IBAN}")
+    public List<Object> getRecs(@PathVariable int IBAN){
+        return receiptService.returnRec(IBAN);
     }
 
-    @PostMapping("/transferRec/{IBAN1}/{uID1}/{IBAN2}/{uID2}/{num}")
-    public void transferRec(@PathVariable int IBAN1,@PathVariable Long uID1, @PathVariable int IBAN2,@PathVariable Long uID2,@PathVariable float num){
-        receiptService.transferRec(IBAN1, uID1, IBAN2, uID2, num);
+    @PostMapping("/transferRec/{IBAN1}/{IBAN2}/{num}")
+    public void transferRec(@PathVariable int IBAN1,@PathVariable int IBAN2,@PathVariable float num){
+        receiptService.transferRec(IBAN1,IBAN2,num);
     }
 
 

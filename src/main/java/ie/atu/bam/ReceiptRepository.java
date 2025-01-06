@@ -8,6 +8,6 @@ import java.util.List;
 public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 
 
-    List<Object> findByuID1(Long uID);
+    List<Object> findByAccountIBAN1(int IBAN);
 
 }
