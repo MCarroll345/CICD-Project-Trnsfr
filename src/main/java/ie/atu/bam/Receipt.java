@@ -17,11 +17,6 @@ public class Receipt {
     private Long Id;
 
     @NotNull
-    private Long uID1;
-
-    private Long uID2;
-
-    @NotNull
     private int accountIBAN1;
 
     private int accountIBAN2;
