@@ -1,8 +1,11 @@
 package ie.atu.bam;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ReceiptService {
@@ -17,7 +20,49 @@ public class ReceiptService {
         this.receiptRepository = receiptRepository;
     }
 
+    public List<Receipt> getAll(){
+        return receiptRepository.findAll();
+    }
 
+    public void withDepRec(int IBAN, Long uID, String inout, float num){
+        Receipt receipt = new Receipt();
+        float plusMinus = 0;
+        receipt.setAccountIBAN1(IBAN);
+        receipt.setUID1(uID);
+        switch (inout){
+            case "withdraw":
+                plusMinus = 0 - num;
+                System.out.println("Receipt created: W");
+                receipt.setBalChange(plusMinus);
+                receiptRepository.save(receipt);
+                break;
+            case "deposit":
+                System.out.println("Receipt created: D");
+                receipt.setBalChange(num);
+                receiptRepository.save(receipt);
+                break;
+            default:
+                System.out.println("Error");
+                break;
+        }
+    }
+
+    public void transferRec(int IBAN1, Long uID1, int IBAN2, Long uID2, float num){
+        Receipt receipt = new Receipt();
+        float plusMinus = 0;
+        receipt.setAccountIBAN1(IBAN1);
+        receipt.setAccountIBAN2(IBAN2);
+        receipt.setUID1(uID1);
+        receipt.setUID2(uID2);
+        plusMinus = 0 - num;
+        System.out.println("Receipt created: W");
+        receipt.setBalChange(plusMinus);
+        receiptRepository.save(receipt);
+    }
+
+    public List<Object> returnRec(Long uID){
+        return receiptRepository.findByuID1(uID);
+    }
 
 }
 
